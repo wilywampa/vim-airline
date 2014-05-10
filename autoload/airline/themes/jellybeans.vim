@@ -11,11 +11,11 @@ function! airline#themes#jellybeans#refresh()
   " compatible color array is generated.
   let s:N1 = airline#themes#get_highlight('DbgCurrent', 'bold')
   let s:N2 = airline#themes#get_highlight('Folded')
-  let s:N3 = airline#themes#get_highlight('NonText')
+  let s:N3 = airline#themes#get_highlight('CursorLine')
 
-  let g:airline#themes#jellybeans#palette.accents = {
-        \ 'red': airline#themes#get_highlight('Constant'),
-        \ }
+  " let g:airline#themes#jellybeans#palette.accents = {
+  "       \ 'red': airline#themes#get_highlight('Constant'),
+  "       \ }
 
   let g:airline#themes#jellybeans#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3)
   let g:airline#themes#jellybeans#palette.normal_modified = {
