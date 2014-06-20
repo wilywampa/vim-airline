@@ -63,6 +63,8 @@ function! airline#extensions#apply(...)
 
   if &buftype == 'help'
     call airline#extensions#apply_left_override('Help', '%f')
+    let w:airline_section_b = g:airline_section_b
+    let w:airline_section_c = airline#section#create(['%f ', 'readonly'])
     let w:airline_section_x = ''
     let w:airline_section_y = ''
     let w:airline_render_right = 1
