@@ -38,20 +38,20 @@ function! airline#themes#solarized#refresh()
   if s:background == 'dark'
     let s:N1 = [s:base3, s:base1, 'bold']
     let s:N2 = [s:base2, (s:tty ? s:base01 : s:base00), '']
-    let s:N3 = [s:base01, s:base02, '']
+    let s:N3 = [s:base1, s:base02, '']
   else
     let s:N1 = [s:base2, s:base00, 'bold']
     let s:N2 = [(s:tty ? s:base01 : s:base2), s:base1, '']
-    let s:N3 = [s:base1, s:base2, '']
+    let s:N3 = [s:base01, s:base2, '']
   endif
   let s:NF = [s:orange, s:N3[1], '']
   let s:NW = [s:base3, s:orange, '']
   if s:background == 'dark'
     let s:NM = [s:base1, s:N3[1], '']
-    let s:NMi = [s:base2, s:N3[1], '']
+    let s:NMi = [s:base1, s:N3[1], '']
   else
     let s:NM = [s:base01, s:N3[1], '']
-    let s:NMi = [s:base02, s:N3[1], '']
+    let s:NMi = [s:base01, s:N3[1], '']
   endif
 
   " Insert mode
@@ -62,25 +62,25 @@ function! airline#themes#solarized#refresh()
   let s:IM = s:NM
 
   " Visual mode
-  let s:V1 = [s:N1[0], s:magenta, 'bold']
+  let s:V1 = [s:N1[0], s:red, '']
   let s:V2 = s:N2
   let s:V3 = s:N3
-  let s:VF = s:NF
-  let s:VM = s:NM
+  let s:VF = s:NM
+  let s:VM = s:NF
 
   " Replace mode
-  let s:R1 = [s:N1[0], s:red, '']
+  let s:R1 = [s:N1[0], s:magenta, 'bold']
   let s:R2 = s:N2
   let s:R3 = s:N3
-  let s:RM = s:NM
-  let s:RF = s:NF
+  let s:RM = s:NF
+  let s:RF = s:NM
 
   " Inactive, according to VertSplit in solarized
   " (bg dark: base00; bg light: base0)
   if s:background == 'dark'
-    let s:IA = [s:base02, s:base00, '']
+    let s:IA = [s:base01, s:base02, '']
   else
-    let s:IA = [s:base2, s:base0, '']
+    let s:IA = [s:base0, s:base2, '']
   endif
 
   """"""""""""""""""""""""""""""""""""""""""""""""
@@ -92,9 +92,9 @@ function! airline#themes#solarized#refresh()
   let s:VFa = [s:VF[0].g, s:VF[1].g, s:VF[0].t, s:VF[1].t, s:VF[2]]
   let s:RFa = [s:RF[0].g, s:RF[1].g, s:RF[0].t, s:RF[1].t, s:RF[2]]
 
-  let g:airline#themes#solarized#palette.accents = {
-        \ 'red': s:NFa,
-        \ }
+  " let g:airline#themes#solarized#palette.accents = {
+  "       \ 'red': s:NFa,
+  "       \ }
 
   let g:airline#themes#solarized#palette.inactive = airline#themes#generate_color_map(
         \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
@@ -103,17 +103,26 @@ function! airline#themes#solarized#refresh()
   let g:airline#themes#solarized#palette.inactive_modified = {
         \ 'airline_c': [s:NMi[0].g, '', s:NMi[0].t, '', s:NMi[2]]}
 
-  let g:airline#themes#solarized#palette.normal = airline#themes#generate_color_map(
+  if exists('g:focuslost')
+    let g:airline#themes#solarized#palette.normal = airline#themes#generate_color_map(
+        \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
+        \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
+        \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]])
+    let g:airline#themes#solarized#palette.normal_modified = {
+        \ 'airline_c': [s:NMi[0].g, '', s:NMi[0].t, '', s:NMi[2]]}
+  else
+    let g:airline#themes#solarized#palette.normal = airline#themes#generate_color_map(
         \ [s:N1[0].g, s:N1[1].g, s:N1[0].t, s:N1[1].t, s:N1[2]],
         \ [s:N2[0].g, s:N2[1].g, s:N2[0].t, s:N2[1].t, s:N2[2]],
         \ [s:N3[0].g, s:N3[1].g, s:N3[0].t, s:N3[1].t, s:N3[2]])
 
+    let g:airline#themes#solarized#palette.normal_modified = {
+        \ 'airline_c': [s:yellow.g, s:NM[1].g,
+        \ s:yellow.t, s:NM[1].t, s:NM[2]]}
+  endif
+
   let g:airline#themes#solarized#palette.normal.airline_warning = [
         \ s:NW[0].g, s:NW[1].g, s:NW[0].t, s:NW[1].t, s:NW[2]]
-
-  let g:airline#themes#solarized#palette.normal_modified = {
-        \ 'airline_c': [s:NM[0].g, s:NM[1].g,
-        \ s:NM[0].t, s:NM[1].t, s:NM[2]]}
 
   let g:airline#themes#solarized#palette.normal_modified.airline_warning =
         \ g:airline#themes#solarized#palette.normal.airline_warning

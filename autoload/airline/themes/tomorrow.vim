@@ -38,6 +38,14 @@ function! airline#themes#tomorrow#refresh()
   let g:airline#themes#tomorrow#palette.inactive_modified = {
         \ 'airline_c': [ group[0], '', group[2], '', '' ]
         \ }
+
+  if exists('g:focuslost')
+    let s:IA = airline#themes#get_highlight2(['NonText', 'fg'], ['CursorLine', 'bg'])
+    let g:airline#themes#tomorrow#palette.normal = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
+    let g:airline#themes#tomorrow#palette.normal_modified = {
+        \ 'airline_c': [ group[0], '', group[2], '', '' ]
+        \ }
+  endif
 endfunction
 
 call airline#themes#tomorrow#refresh()
