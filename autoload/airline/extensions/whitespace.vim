@@ -101,3 +101,7 @@ function! airline#extensions#whitespace#init(...)
   augroup END
 endfunction
 
+function! airline#extensions#whitespace#get_enabled()
+  return s:enabled
+endfunction
+
