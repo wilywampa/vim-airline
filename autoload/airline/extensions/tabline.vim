@@ -42,6 +42,9 @@ function! s:toggle_on()
 endfunction
 
 function! s:update_tabline()
+  if get(g:, 'airline#extensions#tabline#disable_refresh', 0)
+    return
+  endif
   let match = expand('<afile>')
   if pumvisible()
     return
@@ -170,7 +173,6 @@ function! airline#extensions#tabline#group_of_bufnr(tab_bufs, bufnr)
     else
       let group = 'airline_tabsel'
     endif
-    let s:current_modified = (group == 'airline_tabmod') ? 1 : 0
   else
     if g:airline_detect_modified && getbufvar(a:bufnr, '&modified')
       let group = 'airline_tabmod_unsel'
